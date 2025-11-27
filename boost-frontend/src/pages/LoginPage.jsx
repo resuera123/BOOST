@@ -90,13 +90,6 @@ export default function LoginPage() {
           <div className="register-link">
             Don't have an account? <a href="/register">Register here</a>
           </div>
-
-          <div className="demo-credentials">
-            <p className="demo-title">Demo Credentials:</p>
-            <p><span className="demo-label">Student:</span> student@university.edu / password123</p>
-            <p><span className="demo-label">Seller:</span> seller@university.edu / password123</p>
-            <p><span className="demo-label">Admin:</span> admin@university.edu / admin123</p>
-          </div>
         </div>
       </div>
     </div>
