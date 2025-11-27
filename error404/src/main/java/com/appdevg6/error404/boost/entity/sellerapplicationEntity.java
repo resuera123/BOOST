@@ -25,7 +25,7 @@ public class sellerapplicationEntity {
 
     // owning side: nullable unique foreign key to user (makes relationship optional and 1:1)
     @OneToOne(optional = true)
-    @JoinColumn(name = "user_id", referencedColumnName = "uid", unique = true, nullable = true)
+    @JoinColumn(name = "user_id", referencedColumnName = "userID", unique = true, nullable = true)
     private userEntity user;
 
 }
