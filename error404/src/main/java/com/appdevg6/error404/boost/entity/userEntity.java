@@ -1,12 +1,11 @@
-
 package com.appdevg6.error404.boost.entity;
 
-import java.util.ArrayList;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -22,11 +21,12 @@ public class userEntity {
     @Column(name = "username")
     private String username;
 
+    @Column(name = "email", unique = true)
+    private String email;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password")
     private String password;
-
-    @Column(name = "email")
-    private String email;
 
     @Column(name = "phone")
     private String phone;

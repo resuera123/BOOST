@@ -3,11 +3,11 @@ package com.appdevg6.error404.boost.service;
 import com.appdevg6.error404.boost.entity.userEntity;
 import com.appdevg6.error404.boost.repository.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.NoSuchElementException;
 
 @Service
 public class userService {
@@ -15,8 +15,14 @@ public class userService {
     @Autowired
     private userRepository urepo;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     // CREATE
     public userEntity createUser(userEntity user) {
+        if (user.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         return urepo.save(user);
     }
 
@@ -33,36 +39,30 @@ public class userService {
     // UPDATE
     @SuppressWarnings("finally")
     public userEntity updateUser(Integer id, userEntity updatedUser) {
-        userEntity user = new userEntity();
-        try {
-            user = urepo.findById(id).get();
-            user.setUsername(updatedUser.getUsername());
-            user.setPassword(updatedUser.getPassword());
-            user.setEmail(updatedUser.getEmail());
-            user.setPhone(updatedUser.getPhone());
-            user.setFirstname(updatedUser.getFirstname());
-            user.setMiddlename(updatedUser.getMiddlename());
-            user.setLastname(updatedUser.getLastname());
-            user.setRole(updatedUser.getRole());
-            return urepo.save(user);
-        } catch (NoSuchElementException ex) {
-            throw new NoSuchElementException("User " + id + " does not exist");
-        } finally {
+        Optional<userEntity> opt = urepo.findById(id);
+        if (opt.isPresent()) {
+            userEntity user = opt.get();
+            // update allowed fields
+            if (updatedUser.getUsername() != null) user.setUsername(updatedUser.getUsername());
+            if (updatedUser.getEmail() != null) user.setEmail(updatedUser.getEmail());
+            if (updatedUser.getPassword() != null) user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+            if (updatedUser.getPhone() != null) user.setPhone(updatedUser.getPhone());
+            if (updatedUser.getFirstname() != null) user.setFirstname(updatedUser.getFirstname());
+            if (updatedUser.getMiddlename() != null) user.setMiddlename(updatedUser.getMiddlename());
+            if (updatedUser.getLastname() != null) user.setLastname(updatedUser.getLastname());
+            if (updatedUser.getRole() != null) user.setRole(updatedUser.getRole());
             return urepo.save(user);
         }
+        return null;
     }
 
     // DELETE
     public String deleteUser(Integer id) {
-        String msg = "";
-
-        if (urepo.findById(id).isPresent()) {
+        if (urepo.existsById(id)) {
             urepo.deleteById(id);
-            msg = "User " + id + " deleted successfully";
+            return "User deleted successfully";
         } else {
-            msg = "User " + id + " does not exist";
+            return "User with id " + id + " not found";
         }
-
-        return msg;
     }
 }
