@@ -1,62 +1,77 @@
 package com.appdevg6.error404.boost.service;
 
 import com.appdevg6.error404.boost.entity.sellerapplicationEntity;
+import com.appdevg6.error404.boost.entity.userEntity;
 import com.appdevg6.error404.boost.repository.sellerapplicationRepository;
+import com.appdevg6.error404.boost.repository.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.NoSuchElementException;
 
 @Service
 public class sellerapplicationService {
 
     @Autowired
     private sellerapplicationRepository srepo;
+    
+    @Autowired
+    private userRepository userRepo;
 
     // CREATE
     public sellerapplicationEntity createSellerApplication(sellerapplicationEntity app) {
-        return srepo.save(app);
+        // Save the application
+        sellerapplicationEntity savedApp = srepo.save(app);
+        
+        // AUTO-APPROVE: Update user role to "seller" immediately
+        if (app.getUser() != null) {
+            Optional<userEntity> userOpt = userRepo.findById(app.getUser().getUserID());
+            if (userOpt.isPresent()) {
+                userEntity user = userOpt.get();
+                user.setRole("SELLER");
+                userRepo.save(user);
+                
+                // Update application status to approved
+                savedApp.setApplicationStatus("Approved");
+                savedApp = srepo.save(savedApp);
+            }
+        }
+        
+        return savedApp;
     }
 
-    // READ (All)
+    // READ ALL
     public List<sellerapplicationEntity> getAllSellerApplications() {
         return srepo.findAll();
     }
 
-    // READ (By ID)
+    // READ BY ID
     public Optional<sellerapplicationEntity> getSellerApplicationById(Integer id) {
         return srepo.findById(id);
     }
 
     // UPDATE
-    @SuppressWarnings("finally")
     public sellerapplicationEntity updateSellerApplication(Integer id, sellerapplicationEntity updatedApp) {
-        sellerapplicationEntity app = new sellerapplicationEntity();
-        try {
-            app = srepo.findById(id).get();
+        Optional<sellerapplicationEntity> existing = srepo.findById(id);
+        if (existing.isPresent()) {
+            sellerapplicationEntity app = existing.get();
             app.setApplicationStatus(updatedApp.getApplicationStatus());
             app.setApplicationDate(updatedApp.getApplicationDate());
-            // If payload includes user relation, it can be set here:
-            // app.setUser(updatedApp.getUser());
-            return srepo.save(app);
-        } catch (NoSuchElementException ex) {
-            throw new NoSuchElementException("Seller application " + id + " does not exist");
-        } finally {
+            if (updatedApp.getUser() != null) {
+                app.setUser(updatedApp.getUser());
+            }
             return srepo.save(app);
         }
+        return null;
     }
 
     // DELETE
     public String deleteSellerApplication(Integer id) {
-        String msg = "";
-        if (srepo.findById(id).isPresent()) {
+        if (srepo.existsById(id)) {
             srepo.deleteById(id);
-            msg = "Seller application " + id + " deleted successfully";
-        } else {
-            msg = "Seller application " + id + " does not exist";
+            return "Seller application with ID " + id + " deleted successfully.";
         }
-        return msg;
+        return "Seller application with ID " + id + " does not exist.";
     }
 }

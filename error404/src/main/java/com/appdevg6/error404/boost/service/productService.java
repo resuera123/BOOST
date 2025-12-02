@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.NoSuchElementException;
 
 @Service
@@ -30,6 +31,14 @@ public class productService {
         return prepo.findById(id);
     }
 
+    // READ (By User ID)
+    public List<productEntity> getProductsByUser(Integer userId) {
+        return prepo.findAll().stream()
+            .filter(product -> product.getUser() != null && 
+                    product.getUser().getUserID() == userId)
+            .collect(Collectors.toList());
+    }
+
     // UPDATE
     @SuppressWarnings("finally")
     public productEntity updateProduct(Integer id, productEntity updatedProduct) {
@@ -43,8 +52,6 @@ public class productService {
             product.setProductCategory(updatedProduct.getProductCategory());
             product.setProductStatus(updatedProduct.getProductStatus());
             product.setProductDate(updatedProduct.getProductDate());
-            // If payload includes user relation, you can set it:
-            // product.setUser(updatedProduct.getUser());
             return prepo.save(product);
         } catch (NoSuchElementException ex) {
             throw new NoSuchElementException("Product " + id + " does not exist");

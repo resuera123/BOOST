@@ -1,6 +1,7 @@
 package com.appdevg6.error404.boost.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;  
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,9 +44,11 @@ public class userEntity {
     @Column(name = "role")
     private String role;
 
+    @JsonIgnore  // ADD THIS - Prevents circular reference
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private sellerapplicationEntity sellerApplication;
 
+    @JsonIgnore  // ADD THIS - Prevents circular reference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<productEntity> products = new ArrayList<>();
 

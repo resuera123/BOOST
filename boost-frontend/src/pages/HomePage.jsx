@@ -15,72 +15,36 @@ export default function HomePage() {
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
-    // Mock products data - replace with API call later
-    const mockProducts = [
-      {
-        productID: 1,
-        productName: 'Calculus Textbook - 10th Edition',
-        description: 'Like new condition. All chapters included. Great for Math 101.',
-        price: 45,
-        category: 'Textbooks',
-        seller: 'Jane Seller',
-        rating: 4.8,
-        image: 'https://via.placeholder.com/300x200?text=Calculus+Textbook'
-      },
-      {
-        productID: 2,
-        productName: 'MacBook Air M1 - 2020',
-        description: 'Excellent condition, barely used. 8GB RAM, 256GB SSD. Includes charger.',
-        price: 750,
-        category: 'Electronics',
-        seller: 'Jane Seller',
-        rating: 4.8,
-        image: 'https://via.placeholder.com/300x200?text=MacBook+Air'
-      },
-      {
-        productID: 3,
-        productName: 'Handmade Campus Tote Bag',
-        description: 'Eco-friendly canvas tote with university logo. Perfect for carrying books.',
-        price: 20,
-        category: 'Accessories',
-        seller: 'Jane Seller',
-        rating: 4.8,
-        image: 'https://via.placeholder.com/300x200?text=Tote+Bag'
-      },
-      {
-        productID: 4,
-        productName: 'Physics Lab Manual',
-        description: 'Complete lab manual with all experiments. Used once.',
-        price: 30,
-        category: 'Textbooks',
-        seller: 'John Seller',
-        rating: 4.5,
-        image: 'https://via.placeholder.com/300x200?text=Physics+Manual'
-      },
-      {
-        productID: 5,
-        productName: 'Wireless Headphones',
-        description: 'Noise-cancelling, Bluetooth 5.0. Great for studying.',
-        price: 60,
-        category: 'Electronics',
-        seller: 'Sarah Seller',
-        rating: 4.7,
-        image: 'https://via.placeholder.com/300x200?text=Headphones'
-      },
-      {
-        productID: 6,
-        productName: 'Study Desk Lamp',
-        description: 'LED lamp with adjustable brightness. Perfect for late night studying.',
-        price: 25,
-        category: 'Accessories',
-        seller: 'Mike Seller',
-        rating: 4.6,
-        image: 'https://via.placeholder.com/300x200?text=Desk+Lamp'
-      }
-    ];
-    setProducts(mockProducts);
-    setFilteredProducts(mockProducts);
+    
+    // Fetch real products from backend
+    fetchProducts();
   }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/products/getAllProducts');
+      const data = await response.json();
+      
+      // Transform backend data to match your frontend format
+      const transformedProducts = data.map(product => ({
+        productID: product.productID,
+        productName: product.productName|| 'Unnamed Product',
+        description: product.productDescription|| 'No description available',
+        price: product.productPrice || 0,
+        category: product.productCategory || 'Uncategorized',
+        seller: product.user ? `${product.user.firstname} ${product.user.lastname}` : 'Unknown Seller',
+        rating: 4.5, // You can add ratings to backend later
+        image: product.productImage || 'https://via.placeholder.com/300x200?text=No+Image'
+      }));
+      
+      setProducts(transformedProducts);
+      setFilteredProducts(transformedProducts);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      setProducts([]);
+      setFilteredProducts([]);
+    }
+  };
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -123,8 +87,21 @@ export default function HomePage() {
         <div className="header-content">
           <div className="logo">⚡ BOOSTS</div>
           <nav className="header-nav">
-            <span className="user-greeting">👤 {user?.firstname || 'Student'}</span>
-            <button className="nav-btn">Become a Seller</button>
+            <span className="user-greeting">
+              👤 {user?.firstname || 'Student'}
+              {user?.role === 'SELLER' && (
+                <span className="seller-badge">✓ Seller</span>
+              )}
+            </span>
+            {user?.role === 'SELLER' ? (
+              <button className="nav-btn" onClick={() => navigate('/products')}>
+                My Products
+              </button>
+            ) : (
+              <button className="nav-btn" onClick={() => navigate('/seller-application')}>
+                Become a Seller
+              </button>
+            )}
             <button className="logout-btn" onClick={handleLogout}>Logout</button>
           </nav>
         </div>

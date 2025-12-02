@@ -55,4 +55,13 @@ public class productController {
         }
         return ResponseEntity.ok(result);
     }
+
+    // GET PRODUCTS BY USER ID
+@GetMapping("/getProductsByUser/{userId}")
+public ResponseEntity<List<productEntity>> getProductsByUser(@PathVariable Integer userId) {
+    List<productEntity> products = pserv.getProductsByUser(userId);
+    return ResponseEntity.ok(products);
+}
+
+
 }

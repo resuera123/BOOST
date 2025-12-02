@@ -88,6 +88,24 @@ public class userController {
         }
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/getUserByEmail/{email}")
+    public ResponseEntity<userEntity> getUserByEmail(@PathVariable String email) {
+    List<userEntity> users = userv.getAllUsers();
+    for (userEntity user : users) {
+        if (user != null && email.equals(user.getEmail())) {
+            user.setPassword(null); // Don't return password
+            return ResponseEntity.ok(user);
+        }
+    }
+    return ResponseEntity.notFound().build();
+}
+
+
+
+
+
+
 }
 
 class LoginRequest {
