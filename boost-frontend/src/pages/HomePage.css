@@ -56,6 +56,38 @@
   transform: translateY(-1px);
 }
 
+.admin-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 4px 10px;
+  background: linear-gradient(135deg, #8B2635 0%, #6B1E2C 100%);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 6px rgba(139, 38, 53, 0.4);
+  vertical-align: middle;
+  transform: translateY(-1px);
+}
+
+.admin-btn {
+  background: linear-gradient(135deg, #8B2635 0%, #6B1E2C 100%);
+  border: 2px solid #8B2635;
+  
+}
+
+.admin-btn:hover {
+  background: linear-gradient(135deg, #6B1E2C 0%, #4A1420 100%);
+  border-color: #6B1E2C;
+ 
+  box-shadow: 0 4px 12px rgba(139, 38, 53, 0.3);
+}
+
+
+
+
 .nav-btn {
   background: none;
   border: 2px solid #90353f;

@@ -85,15 +85,22 @@ export default function HomePage() {
       {/* Header */}
       <header className="home-header">
         <div className="header-content">
-          <div className="logo"><i class="bi bi-lightning-charge-fill"></i> BOOSTS</div>
+          <div className="logo"><i className="bi bi-lightning-charge-fill"></i> BOOSTS</div>
           <nav className="header-nav">
             <span className="user-greeting">
               👤 Welcome, {user?.firstname || 'Student'}
               {user?.role === 'SELLER' && (
                 <span className="seller-badge">✓ Seller</span>
               )}
+              {user?.role === 'ADMIN' && (
+                <span className="admin-badge">⚡ ADMIN</span>
+              )}
             </span>
-            {user?.role === 'SELLER' ? (
+            {user?.role === 'ADMIN' ? (
+              <button className="nav-btn admin-btn" onClick={() => navigate('/admin')}>
+                Admin Panel
+              </button>
+            ) : user?.role === 'SELLER' ? (
               <button className="nav-btn" onClick={() => navigate('/products')}>
                 My Products
               </button>
@@ -102,7 +109,9 @@ export default function HomePage() {
                 Become a Seller
               </button>
             )}
-            <button className="logout-btn" onClick={handleLogout}>Logout&nbsp;&nbsp;<i class="bi bi-box-arrow-right"></i></button>
+            <button className="logout-btn" onClick={handleLogout}>
+              Logout&nbsp;&nbsp;<i className="bi bi-box-arrow-right"></i>
+            </button>
           </nav>
         </div>
       </header>
@@ -118,7 +127,7 @@ export default function HomePage() {
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
           />
-          <button><i class="bi bi-search"></i></button>
+          <button><i className="bi bi-search"></i></button>
         </div>
       </section>
 
@@ -143,8 +152,8 @@ export default function HomePage() {
                 <p className="category-badge">{product.category}</p>
                 <p className="description">{product.description}</p>
                 <div className="seller-info">
-                  <span className="seller-name"><i class="bi bi-heart-fill"></i>&nbsp; {product.seller}</span>
-                  <span className="rating"><i class="bi bi-star-fill"></i>&nbsp; {product.rating}</span>
+                  <span className="seller-name"><i className="bi bi-heart-fill"></i>&nbsp; {product.seller}</span>
+                  <span className="rating"><i className="bi bi-star-fill"></i>&nbsp; {product.rating}</span>
                 </div>
                 <div className="product-footer">
                   <span className="price">${product.price}</span>

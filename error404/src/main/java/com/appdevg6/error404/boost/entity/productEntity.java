@@ -26,9 +26,6 @@ public class productEntity {
     @Column(name = "product_price")
     private double productPrice;
 
-    @Column(name = "product_image")
-    private String productImage;
-
     @Column(name = "product_category")
     private String productCategory;
 
@@ -38,6 +35,9 @@ public class productEntity {
     @Column(name = "product_date")
     private LocalDate productDate;
     
+    @Column(name = "product_image", columnDefinition = "LONGTEXT")
+    private String productImage;
+
     @ManyToOne(optional = true)
     @JoinColumn(name = "user_ID", referencedColumnName = "userID", nullable = true)
     private userEntity user;

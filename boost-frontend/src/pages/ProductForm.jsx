@@ -14,10 +14,10 @@ export default function ProductForm() {
     productPrice: '',
     productImage: '',
     productCategory: '',
-    productStatus: 'Available',
-    productDate: new Date().toISOString().split('T')[0]
+    productStatus: 'Available'
   });
 
+  const [imagePreview, setImagePreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [currentUser, setCurrentUser] = useState(null);
@@ -43,9 +43,14 @@ export default function ProductForm() {
         productPrice: product.productPrice,
         productImage: product.productImage,
         productCategory: product.productCategory,
-        productStatus: product.productStatus,
-        productDate: product.productDate
+        productStatus: product.productStatus
       });
+      
+      // Set image preview if image exists
+      if (product.productImage) {
+        setImagePreview(product.productImage);
+      }
+      
       setError('');
     } catch (err) {
       setError(err.message || 'Failed to load product details');
@@ -58,6 +63,44 @@ export default function ProductForm() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    
+    if (!file) return;
+    
+    // Check file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setError('Image size must be less than 5MB');
+      return;
+    }
+    
+    // Check file type
+    if (!file.type.startsWith('image/')) {
+      setError('Please upload an image file');
+      return;
+    }
+    
+    // Convert to Base64
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64String = reader.result;
+      setFormData(prev => ({ ...prev, productImage: base64String }));
+      setImagePreview(base64String);
+      setError('');
+    };
+    reader.onerror = () => {
+      setError('Failed to read image file');
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemoveImage = () => {
+    setFormData(prev => ({ ...prev, productImage: '' }));
+    setImagePreview(null);
+    // Clear file input
+    document.getElementById('productImage').value = '';
   };
 
   const handleSubmit = async (e) => {
@@ -83,9 +126,10 @@ export default function ProductForm() {
 
     setLoading(true);
     try {
-      // Add user object to formData
+      // Add user object and current date to formData
       const productData = {
         ...formData,
+        productDate: new Date().toISOString().split('T')[0], // Auto-set current date
         user: {
           userID: currentUser.userID
         }
@@ -119,7 +163,9 @@ export default function ProductForm() {
     <div className="home-page">
       <header className="home-header">
         <div className="header-content">
-          <div className="logo" onClick={() => navigate('/home')}><i class="bi bi-lightning-charge-fill"></i> BOOSTS</div>
+          <div className="logo" onClick={() => navigate('/home')}>
+            <i className="bi bi-lightning-charge-fill"></i> BOOSTS
+          </div>
           <nav className="header-nav">
             <span className="user-greeting">
               👤 Welcome, {currentUser?.firstname || 'Student'}
@@ -136,7 +182,9 @@ export default function ProductForm() {
                 Become a Seller
               </button>
             )}
-            <button className="logout-btn" onClick={handleLogout}>Logout&nbsp;&nbsp;<i class="bi bi-box-arrow-right"></i></button>
+            <button className="logout-btn" onClick={handleLogout}>
+              Logout&nbsp;&nbsp;<i className="bi bi-box-arrow-right"></i>
+            </button>
           </nav>
         </div>
       </header>
@@ -188,16 +236,37 @@ export default function ProductForm() {
               />
             </div>
 
+            {/* IMAGE UPLOAD SECTION */}
             <div className="form-group">
-              <label htmlFor="productImage">Image URL</label>
-              <input
-                type="url"
-                id="productImage"
-                name="productImage"
-                value={formData.productImage}
-                onChange={handleChange}
-                placeholder="https://example.com/image.jpg"
-              />
+              <label htmlFor="productImage">Product Image</label>
+              
+              {imagePreview ? (
+                <div className="image-preview-container">
+                  <img src={imagePreview} alt="Preview" className="image-preview" />
+                  <button 
+                    type="button" 
+                    className="btn-remove-image"
+                    onClick={handleRemoveImage}
+                  >
+                    ✕ Remove Image
+                  </button>
+                </div>
+              ) : (
+                <div className="upload-container">
+                  <label htmlFor="productImage" className="upload-label">
+                    <i className="bi bi-cloud-upload"></i>
+                    <span>Click to upload image</span>
+                    <small>PNG, JPG, JPEG (Max 5MB)</small>
+                  </label>
+                  <input
+                    type="file"
+                    id="productImage"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="file-input"
+                  />
+                </div>
+              )}
             </div>
 
             <div className="form-group">
@@ -224,17 +293,6 @@ export default function ProductForm() {
                 <option value="Sold">Sold</option>
                 <option value="Reserved">Reserved</option>
               </select>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="productDate">Date</label>
-              <input
-                type="date"
-                id="productDate"
-                name="productDate"
-                value={formData.productDate}
-                onChange={handleChange}
-              />
             </div>
 
             <div className="form-actions">

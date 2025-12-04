@@ -4,6 +4,37 @@
   margin: 0 auto;
 }
 
+/* ✅ NEW: Fixed back button at top-left corner */
+.back-button-fixed {
+  position: fixed;
+  top: 10px;
+  left: 20px;
+  background: #8B2635;
+  color: white;
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(139, 38, 53, 0.4);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.back-button-fixed:hover {
+  background: #6B1E2C;
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(139, 38, 53, 0.6);
+}
+
+.back-button-fixed:active {
+  transform: scale(0.95);
+}
+
 .header-actions {
   display: flex;
   justify-content: space-between;
@@ -165,23 +196,24 @@
   color: #e74c3c;
 }
 
+/* Mobile responsiveness */
 @media (max-width: 768px) {
   .product-grid {
     grid-template-columns: 1fr;
+    width: 90%;
   }
-}
 
-.back-button {
-  background: none;
-  border: none;
-  color: #3498db;
-  font-size: 1em;
-  cursor: pointer;
-  margin-bottom: 20px;
-  padding: 8px 12px;
-  transition: color 0.3s ease;
-}
+  .header-actions {
+    width: 90%;
+    flex-direction: column;
+    gap: 15px;
+  }
 
-.back-button:hover {
-  color: #2980b9;
+  .back-button-fixed {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    top: 15px;
+    left: 15px;
+  }
 }

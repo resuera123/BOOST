@@ -8,8 +8,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ProductList from './pages/ProductList';
 import ProductForm from './pages/ProductForm';
 import SellerApplicationPage from './pages/SellerApplicationPage';
+import AdminPanel from './pages/AdminPanel';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-
 
 function App() {
   return (
@@ -31,6 +31,7 @@ function App() {
           <Route path="/products/new" element={<ProductForm />} />
           <Route path="/products/edit/:id" element={<ProductForm />} />
           <Route path="/seller-application" element={<SellerApplicationPage />} />
+          <Route path="/admin" element={<AdminPanel />} />
         </Routes>
       </div>
     </Router>

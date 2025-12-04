@@ -19,26 +19,10 @@ public class sellerapplicationService {
     @Autowired
     private userRepository userRepo;
 
-    // CREATE
+    // CREATE - Application stays PENDING (no auto-approve)
     public sellerapplicationEntity createSellerApplication(sellerapplicationEntity app) {
-        // Save the application
-        sellerapplicationEntity savedApp = srepo.save(app);
-        
-        // AUTO-APPROVE: Update user role to "seller" immediately
-        if (app.getUser() != null) {
-            Optional<userEntity> userOpt = userRepo.findById(app.getUser().getUserID());
-            if (userOpt.isPresent()) {
-                userEntity user = userOpt.get();
-                user.setRole("SELLER");
-                userRepo.save(user);
-                
-                // Update application status to approved
-                savedApp.setApplicationStatus("Approved");
-                savedApp = srepo.save(savedApp);
-            }
-        }
-        
-        return savedApp;
+        // Just save the application with Pending status
+        return srepo.save(app);
     }
 
     // READ ALL
@@ -49,6 +33,41 @@ public class sellerapplicationService {
     // READ BY ID
     public Optional<sellerapplicationEntity> getSellerApplicationById(Integer id) {
         return srepo.findById(id);
+    }
+
+    // APPROVE APPLICATION - Admin action
+    public sellerapplicationEntity approveApplication(Integer id) {
+        Optional<sellerapplicationEntity> appOpt = srepo.findById(id);
+        if (appOpt.isPresent()) {
+            sellerapplicationEntity app = appOpt.get();
+            
+            // Update application status
+            app.setApplicationStatus("Approved");
+            
+            // Update user role to SELLER
+            if (app.getUser() != null) {
+                Optional<userEntity> userOpt = userRepo.findById(app.getUser().getUserID());
+                if (userOpt.isPresent()) {
+                    userEntity user = userOpt.get();
+                    user.setRole("SELLER");
+                    userRepo.save(user);
+                }
+            }
+            
+            return srepo.save(app);
+        }
+        return null;
+    }
+
+    // REJECT APPLICATION - Admin action
+    public sellerapplicationEntity rejectApplication(Integer id) {
+        Optional<sellerapplicationEntity> appOpt = srepo.findById(id);
+        if (appOpt.isPresent()) {
+            sellerapplicationEntity app = appOpt.get();
+            app.setApplicationStatus("Rejected");
+            return srepo.save(app);
+        }
+        return null;
     }
 
     // UPDATE

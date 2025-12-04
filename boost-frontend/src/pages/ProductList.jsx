@@ -52,6 +52,11 @@ export default function ProductList() {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/');
+  };
+
   if (loading) {
     return <div className="loading">Loading products...</div>;
   }
@@ -60,39 +65,44 @@ export default function ProductList() {
     return <div className="error">{error}</div>;
   }
 
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    navigate('/');
-  };
-
   return (
-    <div>
-      <div className="home-page">
-        <header className="home-header">
-          <div className="header-content">
-            <div className="logo" onClick={() => navigate('/home')}><i class="bi bi-lightning-charge-fill"></i> BOOSTS</div>
-            <nav className="header-nav">
-              <span className="user-greeting">
-                👤 Welcome, {user?.firstname || 'Student'}
-                {user?.role === 'SELLER' && (
-                  <span className="seller-badge">✓ Seller</span>
-                )}
-              </span>
-              {user?.role === 'SELLER' ? (
-                <button className="nav-btn" onClick={() => navigate('/products')}>
-                  My Products
-                </button>
-              ) : (
-                <button className="nav-btn" onClick={() => navigate('/seller-application')}>
-                  Become a Seller
-                </button>
-              )}
-              <button className="logout-btn" onClick={handleLogout}>Logout&nbsp;&nbsp;<i class="bi bi-box-arrow-right"></i></button>
-            </nav>
-          </div>
-        </header>
+    <div className="home-page">
+      {/* ✅ Back Button - Fixed at top left */}
+      <button className="back-button-fixed" onClick={() => navigate('/home')}>
+        <i className="bi bi-arrow-left"></i>
+      </button>
 
-        <div className="header-actions">
+      {/* Header */}
+      <header className="home-header">
+        <div className="header-content">
+          <div className="logo" onClick={() => navigate('/home')} style={{ cursor: 'pointer' }}>
+            <i className="bi bi-lightning-charge-fill"></i> BOOSTS
+          </div>
+          <nav className="header-nav">
+            <span className="user-greeting">
+              👤 Welcome, {user?.firstname || 'Student'}
+              {(user?.role === 'SELLER' || user?.role === 'seller') && (
+                <span className="seller-badge">✓ Seller</span>
+              )}
+            </span>
+            {(user?.role === 'SELLER' || user?.role === 'seller') ? (
+              <button className="nav-btn" onClick={() => navigate('/products')}>
+                My Products
+              </button>
+            ) : (
+              <button className="nav-btn" onClick={() => navigate('/seller-application')}>
+                Become a Seller
+              </button>
+            )}
+            <button className="logout-btn" onClick={handleLogout}>
+              Logout&nbsp;&nbsp;<i className="bi bi-box-arrow-right"></i>
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      {/* Product List Content */}
+      <div className="header-actions">
           <h2>Your Products</h2>
           <button 
             className="btn-add-new"
@@ -104,7 +114,7 @@ export default function ProductList() {
         
         <div className="product-grid">
           {products.length === 0 ? (
-            <p>No products available.</p>
+            <p className="no-products">No products available. Start by adding your first product!</p>
           ) : (
             products.map((product) => (
               <div key={product.productID} className="product-card">
@@ -117,7 +127,9 @@ export default function ProductList() {
                 )}
                 <div className="product-details">
                   <h3>{product.productName || 'Unnamed Product'}</h3>
-                  <p className="product-description">{product.productDescription || 'No description available'}</p>
+                  <p className="product-description">
+                    {product.productDescription || 'No description available'}
+                  </p>
                   <p className="product-price">
                     ${product.productPrice ? product.productPrice.toFixed(2) : '0.00'}
                   </p>
@@ -149,7 +161,6 @@ export default function ProductList() {
             ))
           )}
         </div>
-      </div>
     </div>
   );
 }

@@ -40,28 +40,25 @@ export default function SellerApplicationPage() {
         }
       };
 
-      // Submit application (backend will auto-approve and update role)
+      // Submit application - will stay PENDING until admin approves
       await createSellerApplication(applicationData);
-      
-      // Fetch updated user info to get new role
-      const response = await fetch(`http://localhost:8080/api/users/getUserByEmail/${user.email}`);
-      const updatedUser = await response.json();
-      
-      // Update localStorage with new user data
-      localStorage.setItem('user', JSON.stringify(updatedUser));
-      setUser(updatedUser);
       
       setSuccess(true);
       
-      // Redirect to products page after 2 seconds
+      // Redirect to home after 3 seconds
       setTimeout(() => {
-        navigate('/products');
-      }, 2000);
+        navigate('/home');
+      }, 3000);
     } catch (err) {
       setError(err.message || 'Failed to submit application');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/');
   };
 
   if (!user) {
@@ -75,29 +72,46 @@ export default function SellerApplicationPage() {
 
   if (user.role === 'SELLER') {
     return (
-      <div className="application-container">
-        <div className="application-card">
-          <h2>You're Already a Seller! 🎉</h2>
-          <p>You can now add and manage products.</p>
-          <button onClick={() => navigate('/products')} className="btn-submit">
-            Go to My Products
-          </button>
+      <div className="home-page">
+        <header className="home-header">
+          <div className="header-content">
+            <div className="logo" onClick={() => navigate('/home')}>
+              <i className="bi bi-lightning-charge-fill"></i> BOOSTS
+            </div>
+            <nav className="header-nav">
+              <span className="user-greeting">
+                👤 Welcome, {user?.firstname || 'Student'}
+                <span className="seller-badge">✓ Seller</span>
+              </span>
+              <button className="nav-btn" onClick={() => navigate('/products')}>
+                My Products
+              </button>
+              <button className="logout-btn" onClick={handleLogout}>
+                Logout&nbsp;&nbsp;<i className="bi bi-box-arrow-right"></i>
+              </button>
+            </nav>
+          </div>
+        </header>
+        <div className="application-container">
+          <div className="application-card">
+            <h2>You're Already a Seller! 🎉</h2>
+            <p>You can now add and manage products.</p>
+            <button onClick={() => navigate('/products')} className="btn-submit">
+              Go to My Products
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    navigate('/');
-  };
-
   return (
-    <div className = "home-page">
-
+    <div className="home-page">
       <header className="home-header">
         <div className="header-content">
-          <div className="logo" onClick={() => navigate('/home')}><i class="bi bi-lightning-charge-fill"></i> BOOSTS</div>
+          <div className="logo" onClick={() => navigate('/home')}>
+            <i className="bi bi-lightning-charge-fill"></i> BOOSTS
+          </div>
           <nav className="header-nav">
             <span className="user-greeting">
               👤 Welcome, {user?.firstname || 'Student'}
@@ -114,22 +128,23 @@ export default function SellerApplicationPage() {
                 Become a Seller
               </button>
             )}
-            <button className="logout-btn" onClick={handleLogout}>Logout&nbsp;&nbsp;<i class="bi bi-box-arrow-right"></i></button>
+            <button className="logout-btn" onClick={handleLogout}>
+              Logout&nbsp;&nbsp;<i className="bi bi-box-arrow-right"></i>
+            </button>
           </nav>
         </div>
       </header>
 
       <div className="application-container">
-
         <div className="application-card">
-          <div className = "aboveh2"></div>
+          <div className="aboveh2"></div>
           <h2>Apply to Become a Seller</h2>
-          <div className = "belowh2"></div>
+          <div className="belowh2"></div>
 
           {error && <div className="error-message">{error}</div>}
           {success && (
             <div className="success-message">
-              🎉 Application approved! You are now a seller! Redirecting to products page...
+              ✅ Application submitted successfully! An admin will review your application soon. Redirecting to home...
             </div>
           )}
 

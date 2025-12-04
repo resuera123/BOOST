@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8080/sellerApplications';
+const API_BASE_URL = 'http://localhost:8080/seller-applications';  // Changed from sellerApplications
 
 async function handleResponse(response) {
   const text = await response.text();
@@ -27,7 +27,7 @@ export const createSellerApplication = async (applicationData) => {
 
 // Get all applications (for admin)
 export const getAllSellerApplications = async () => {
-  const res = await fetch(`${API_BASE_URL}/getAllSellerApplications`, {
+  const res = await fetch(`${API_BASE_URL}/getAllApplications`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   });
@@ -36,7 +36,7 @@ export const getAllSellerApplications = async () => {
 
 // Get application by ID
 export const getSellerApplicationById = async (id) => {
-  const res = await fetch(`${API_BASE_URL}/getSellerApplicationById/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/getApplicationById/${id}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   });
