@@ -8,6 +8,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ProductList from './pages/ProductList';
 import ProductForm from './pages/ProductForm';
 import SellerApplicationPage from './pages/SellerApplicationPage';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 
 function App() {

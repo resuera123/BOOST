@@ -8,8 +8,13 @@ export default function ProductList() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
     fetchProducts();
   }, []);
 
@@ -55,68 +60,95 @@ export default function ProductList() {
     return <div className="error">{error}</div>;
   }
 
-  return (
-    <div className="product-list-container">
-      <button className="back-button" onClick={() => navigate('/home')}>
-        ← Back to Home
-      </button>
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/');
+  };
 
-      <div className="header-actions">
-        <h2>Product List</h2>
-        <button 
-          className="btn-add-new"
-          onClick={() => navigate('/products/new')}
-        >
-          + Add New Product
-        </button>
-      </div>
-      
-      <div className="product-grid">
-        {products.length === 0 ? (
-          <p>No products available.</p>
-        ) : (
-          products.map((product) => (
-            <div key={product.productID} className="product-card">
-              {product.productImage && (
-                <img 
-                  src={product.productImage} 
-                  alt={product.productName || 'Product'}
-                  className="product-image"
-                />
+  return (
+    <div>
+      <div className="home-page">
+        <header className="home-header">
+          <div className="header-content">
+            <div className="logo" onClick={() => navigate('/home')}><i class="bi bi-lightning-charge-fill"></i> BOOSTS</div>
+            <nav className="header-nav">
+              <span className="user-greeting">
+                👤 Welcome, {user?.firstname || 'Student'}
+                {user?.role === 'SELLER' && (
+                  <span className="seller-badge">✓ Seller</span>
+                )}
+              </span>
+              {user?.role === 'SELLER' ? (
+                <button className="nav-btn" onClick={() => navigate('/products')}>
+                  My Products
+                </button>
+              ) : (
+                <button className="nav-btn" onClick={() => navigate('/seller-application')}>
+                  Become a Seller
+                </button>
               )}
-              <div className="product-details">
-                <h3>{product.productName || 'Unnamed Product'}</h3>
-                <p className="product-description">{product.productDescription || 'No description available'}</p>
-                <p className="product-price">
-                  ${product.productPrice ? product.productPrice.toFixed(2) : '0.00'}
-                </p>
-                <p className="product-category">
-                  Category: {product.productCategory || 'Uncategorized'}
-                </p>
-                <p className={`product-status ${product.productStatus ? product.productStatus.toLowerCase() : 'unknown'}`}>
-                  Status: {product.productStatus || 'Unknown'}
-                </p>
-                <p className="product-date">
-                  Listed: {product.productDate ? new Date(product.productDate).toLocaleDateString() : 'N/A'}
-                </p>
-                <div className="product-actions">
-                  <button 
-                    className="btn-edit"
-                    onClick={() => navigate(`/products/edit/${product.productID}`)}
-                  >
-                    Edit
-                  </button>
-                  <button 
-                    className="btn-delete"
-                    onClick={() => handleDelete(product.productID)}
-                  >
-                    Delete
-                  </button>
+              <button className="logout-btn" onClick={handleLogout}>Logout&nbsp;&nbsp;<i class="bi bi-box-arrow-right"></i></button>
+            </nav>
+          </div>
+        </header>
+
+        <div className="header-actions">
+          <h2>Your Products</h2>
+          <button 
+            className="btn-add-new"
+            onClick={() => navigate('/products/new')}
+          >
+            + Add New Product
+          </button>
+        </div>
+        
+        <div className="product-grid">
+          {products.length === 0 ? (
+            <p>No products available.</p>
+          ) : (
+            products.map((product) => (
+              <div key={product.productID} className="product-card">
+                {product.productImage && (
+                  <img 
+                    src={product.productImage} 
+                    alt={product.productName || 'Product'}
+                    className="product-image"
+                  />
+                )}
+                <div className="product-details">
+                  <h3>{product.productName || 'Unnamed Product'}</h3>
+                  <p className="product-description">{product.productDescription || 'No description available'}</p>
+                  <p className="product-price">
+                    ${product.productPrice ? product.productPrice.toFixed(2) : '0.00'}
+                  </p>
+                  <p className="product-category">
+                    Category: {product.productCategory || 'Uncategorized'}
+                  </p>
+                  <p className={`product-status ${product.productStatus ? product.productStatus.toLowerCase() : 'unknown'}`}>
+                    Status: {product.productStatus || 'Unknown'}
+                  </p>
+                  <p className="product-date">
+                    Listed: {product.productDate ? new Date(product.productDate).toLocaleDateString() : 'N/A'}
+                  </p>
+                  <div className="product-actions">
+                    <button 
+                      className="btn-edit"
+                      onClick={() => navigate(`/products/edit/${product.productID}`)}
+                    >
+                      Edit
+                    </button>
+                    <button 
+                      className="btn-delete"
+                      onClick={() => handleDelete(product.productID)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
-        )}
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

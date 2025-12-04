@@ -42,13 +42,13 @@ export default function LoginPage() {
   return (
     <div className="login-page">
       <div className="login-container">
-        <button className="back-button" onClick={() => navigate('/')}>
+        <button className="back-button-login" onClick={() => navigate('/')}>
           ← Back to Home
         </button>
 
         <div className="login-card">
           <div className="login-header">
-            <div className="logo">⚡ BOOSTS</div>
+            <div className="logo"><i class="bi bi-lightning-charge-fill"></i> BOOSTS</div>
             <h1>Welcome Back</h1>
             <p className="subtitle">Login to your student account</p>
           </div>

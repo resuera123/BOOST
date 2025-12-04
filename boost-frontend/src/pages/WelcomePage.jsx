@@ -10,7 +10,7 @@ export default function WelcomePage() {
       {/* Header */}
       <header className="welcome-header">
         <div className="header-content">
-          <div className="logo">⚡ BOOSTS</div>
+          <div className="logo"><i class="bi bi-lightning-charge-fill"></i>BOOSTS</div>
           <nav className="header-nav">
             <button className="login-link-btn" onClick={() => navigate('/login')}>Login</button>
             <button className="get-started-btn" onClick={() => navigate('/register')}>Get Started</button>
@@ -19,7 +19,7 @@ export default function WelcomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="hero">
+      <section className="hero-container">
         <h1>Your Student Marketplace,<br />Powered by Trust</h1>
         <p>Connect with verified student sellers. Buy and sell products safely within your campus community.</p>
         <div className="hero-buttons">

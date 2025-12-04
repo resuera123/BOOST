@@ -12,10 +12,11 @@
   max-width: 500px;
 }
 
-.back-button {
+.back-button-login {
   background: none;
+  font-weight: bold;
   border: none;
-  color: #333;
+  color: #8d393e;
   font-size: 1rem;
   cursor: pointer;
   margin-bottom: 2rem;
@@ -23,10 +24,11 @@
   align-items: center;
   gap: 0.5rem;
   transition: color 0.3s;
+  text-decoration: none;
 }
 
-.back-button:hover {
-  color: #5b42f3;
+.back-button-login:hover {
+  color: #e7c51d;
 }
 
 .login-card {
@@ -44,7 +46,7 @@
 .login-header .logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #5b42f3;
+  color: #8d393e;
   margin-bottom: 1rem;
 }
 
@@ -98,7 +100,7 @@
 .submit-button {
   width: 100%;
   padding: 0.85rem;
-  background: #000;
+  background: #8d393e;
   color: white;
   border: none;
   border-radius: 4px;
@@ -109,7 +111,7 @@
 }
 
 .submit-button:hover {
-  background: #333;
+  background: #e7c51d;
 }
 
 .submit-button:active {
@@ -126,14 +128,14 @@
 }
 
 .register-link a {
-  color: #5b42f3;
+  color: #8d393e;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s;
 }
 
 .register-link a:hover {
-  color: #7c3aed;
+  color: #e7c51d;
 }
 
 .demo-credentials {

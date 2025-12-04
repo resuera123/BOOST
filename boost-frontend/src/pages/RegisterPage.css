@@ -12,7 +12,7 @@
   max-width: 500px;
 }
 
-.back-button {
+.back-button-home {
   background: none;
   border: none;
   color: #333;
@@ -23,10 +23,11 @@
   align-items: center;
   gap: 0.5rem;
   transition: color 0.3s;
+  text-decoration: none;
 }
 
-.back-button:hover {
-  color: #5b42f3;
+.back-button-home:hover {
+  color: #90353f;
 }
 
 .register-card {
@@ -38,13 +39,12 @@
 
 .register-header {
   text-align: center;
-  margin-bottom: 2rem;
 }
 
 .register-header .logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #5b42f3;
+  color: #8c373e;
   margin-bottom: 1rem;
 }
 
@@ -95,10 +95,10 @@
   color: #999;
 }
 
-.submit-button {
+.submit-button-register {
   width: 100%;
   padding: 0.85rem;
-  background: #000;
+  background: #8c373e;
   color: white;
   border: none;
   border-radius: 4px;
@@ -108,11 +108,11 @@
   transition: background 0.3s;
 }
 
-.submit-button:hover {
-  background: #333;
+.submit-button-register:hover {
+  background: #e7c51d;
 }
 
-.submit-button:active {
+.submit-button-register:active {
   transform: scale(0.98);
 }
 
@@ -123,14 +123,14 @@
 }
 
 .login-link a {
-  color: #5b42f3;
+  color: #89353a;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s;
 }
 
 .login-link a:hover {
-  color: #7c3aed;
+  color: #e7c51d;
 }
 
 .form-row {

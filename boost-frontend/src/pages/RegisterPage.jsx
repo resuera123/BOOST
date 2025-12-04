@@ -98,10 +98,9 @@ export default function RegisterPage() {
   return (
     <div className="register-page">
       <div className="register-container">
-        <button className="back-button" onClick={() => navigate('/')}>← Back to Home</button>
         <div className="register-card">
           <div className="register-header">
-            <div className="logo">⚡ BOOSTS</div>
+            <div className="logo"><i class="bi bi-lightning-charge-fill"></i> BOOSTS</div>
             <h1>Create Account</h1>
             <p className="subtitle">Join the student marketplace</p>
           </div>
@@ -159,27 +158,27 @@ export default function RegisterPage() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="9XXXXXXXXX"
+                placeholder="Phone number"
                 required
               />
             </div>
 
             <div className="form-group">
               <label>Student Email (.edu)</label>
-              <input name="studentEmail" type="email" value={formData.studentEmail} onChange={handleChange} placeholder="student.email@cit.edu" required />
+              <input name="studentEmail" type="email" value={formData.studentEmail} onChange={handleChange} placeholder="Student Email" required />
             </div>
 
             <div className="form-group">
               <label>Password</label>
-              <input name="password" type="password" value={formData.password} onChange={handleChange} required />
+              <input name="password" type="password" value={formData.password} onChange={handleChange} placeholder="Password" required />
             </div>
 
             <div className="form-group">
               <label>Confirm Password</label>
-              <input name="confirmPassword" type="password" value={formData.confirmPassword} onChange={handleChange} required />
+              <input name="confirmPassword" type="password" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm Password" required />
             </div>
 
-            <button type="submit" className="submit-button" disabled={loading}>
+            <button type="submit" className="submit-button-register" disabled={loading}>
               {loading ? 'Creating...' : 'Create Account'}
             </button>
           </form>

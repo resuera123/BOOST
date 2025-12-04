@@ -85,10 +85,10 @@ export default function HomePage() {
       {/* Header */}
       <header className="home-header">
         <div className="header-content">
-          <div className="logo">⚡ BOOSTS</div>
+          <div className="logo"><i class="bi bi-lightning-charge-fill"></i> BOOSTS</div>
           <nav className="header-nav">
             <span className="user-greeting">
-              👤 {user?.firstname || 'Student'}
+              👤 Welcome, {user?.firstname || 'Student'}
               {user?.role === 'SELLER' && (
                 <span className="seller-badge">✓ Seller</span>
               )}
@@ -102,13 +102,13 @@ export default function HomePage() {
                 Become a Seller
               </button>
             )}
-            <button className="logout-btn" onClick={handleLogout}>Logout</button>
+            <button className="logout-btn" onClick={handleLogout}>Logout&nbsp;&nbsp;<i class="bi bi-box-arrow-right"></i></button>
           </nav>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="hero">
+      <section className="hero-homepage">
         <h1>Student Marketplace</h1>
         <p>Discover great deals from verified student sellers</p>
         <div className="search-box">
@@ -118,7 +118,7 @@ export default function HomePage() {
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
           />
-          <button>🔍</button>
+          <button><i class="bi bi-search"></i></button>
         </div>
       </section>
 
@@ -143,8 +143,8 @@ export default function HomePage() {
                 <p className="category-badge">{product.category}</p>
                 <p className="description">{product.description}</p>
                 <div className="seller-info">
-                  <span className="seller-name">💚 {product.seller}</span>
-                  <span className="rating">⭐ {product.rating}</span>
+                  <span className="seller-name"><i class="bi bi-heart-fill"></i>&nbsp; {product.seller}</span>
+                  <span className="rating"><i class="bi bi-star-fill"></i>&nbsp; {product.rating}</span>
                 </div>
                 <div className="product-footer">
                   <span className="price">${product.price}</span>

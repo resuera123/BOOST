@@ -4,6 +4,10 @@
   padding: 20px;
 }
 
+.logo {
+  cursor: pointer;
+}
+
 .back-button {
   background: none;
   border: none;
@@ -28,7 +32,7 @@
 
 .product-form-card h2 {
   text-align: center;
-  color: #2c3e50;
+  color: #8a3940;
   margin-bottom: 30px;
 }
 
@@ -109,12 +113,12 @@
 }
 
 .btn-submit {
-  background-color: #27ae60;
+  background-color: #8a3940;
   color: white;
 }
 
 .btn-submit:hover {
-  background-color: #229954;
+  background-color: #e7c51d;
 }
 
 .btn-submit:disabled {

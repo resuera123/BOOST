@@ -14,6 +14,10 @@ body {
   width: 100%;
 }
 
+.bi-lightning-charge-fill {
+  color: #e7c51d;
+}
+
 /* Header */
 .welcome-header {
   background: white;
@@ -56,8 +60,8 @@ body {
 }
 
 .get-started-btn {
-  background: #000;
-  color: white;
+  background: #873a3f;
+  color: #fff;
   border: none;
   padding: 0.6rem 1.2rem;
   border-radius: 4px;
@@ -71,20 +75,20 @@ body {
 }
 
 /* Hero Section */
-.hero {
-  background: linear-gradient(135deg, #5b42f3 0%, #7c3aed 100%);
+.hero-container {
+  background-color: #8c373e;
   color: white;
   padding: 4rem 2rem;
   text-align: center;
 }
 
-.hero h1 {
+.hero-container h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
   font-weight: 700;
 }
 
-.hero p {
+.hero-container p {
   font-size: 1.1rem;
   margin-bottom: 2rem;
   max-width: 600px;
@@ -111,7 +115,7 @@ body {
 
 .btn-primary {
   background: white;
-  color: #5b42f3;
+  color: #8c373e;
 }
 
 .btn-primary:hover {
@@ -141,7 +145,7 @@ body {
 .features h2 {
   font-size: 2rem;
   margin-bottom: 0.5rem;
-  color: #1a1a1a;
+  color: #8c373e;
 }
 
 .subtitle {
@@ -178,7 +182,7 @@ body {
 .feature-card h3 {
   font-size: 1.25rem;
   margin-bottom: 0.75rem;
-  color: #1a1a1a;
+  color: #8c373e;
 }
 
 .feature-card p {
@@ -190,15 +194,16 @@ body {
 .login-link-btn {
   background: none;
   border: none;
-  color: #333;
+  color: #873a3f;
   font-size: 0.95rem;
   cursor: pointer;
   transition: color 0.3s;
   font-family: inherit;
+  font-weight: bold;
 }
 
 .login-link-btn:hover {
-  color: #5b42f3;
+  color: #e8c41b;
 }
 
 @media (max-width: 768px) {
