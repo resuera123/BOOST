@@ -107,8 +107,8 @@ export default function AdminPanel() {
           </div>
           <nav className="header-nav">
             <span className="user-greeting">
-              👤 {user?.firstname || 'Admin'}
-              <span className="admin-badge">⚡ ADMIN</span>
+              <i class="bi bi-person-fill"></i> Welcome,  {user?.firstname || 'Admin'}
+              <span className="admin-badge"><i className="bi bi-lightning-charge-fill"></i>ADMIN</span>
             </span>
             <button className="nav-btn" onClick={() => navigate('/home')}>
               Home
@@ -170,8 +170,8 @@ export default function AdminPanel() {
                   <div className="card-header">
                     <div className="applicant-info">
                       <h3>{app.user?.firstname || 'Unknown'} {app.user?.lastname || 'User'}</h3>
-                      <p className="email">{app.user?.email || 'No email'}</p>
-                      <p className="phone">{app.user?.phone || 'No phone'}</p>
+                      <p className="email"><i class="bi bi-envelope-fill"></i> &nbsp;{app.user?.email || 'No email'}</p>
+                      <p className="phone"><i class="bi bi-telephone-fill"></i> &nbsp;{app.user?.phone || 'No phone'}</p>
                     </div>
                     <span className={`status-badge ${app.applicationStatus?.toLowerCase() || 'pending'}`}>
                       {app.applicationStatus || 'Pending'}
@@ -205,13 +205,13 @@ export default function AdminPanel() {
                         className="btn-approve"
                         onClick={() => handleApprove(app.applicationID, app.user?.userID)}
                       >
-                        ✓ Approve
+                       Approve
                       </button>
                       <button 
                         className="btn-reject"
                         onClick={() => handleReject(app.applicationID)}
                       >
-                        ✗ Reject
+                       Reject
                       </button>
                     </div>
                   )}

@@ -41,4 +41,5 @@ public class productEntity {
     @ManyToOne(optional = true)
     @JoinColumn(name = "user_ID", referencedColumnName = "userID", nullable = true)
     private userEntity user;
+
 }

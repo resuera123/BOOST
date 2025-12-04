@@ -117,6 +117,11 @@
 
 .logout-btn:hover {
   background: #e7c51d;
+  color: #8d393e;
+}
+
+.bi-person-fill {
+  color: #8d363f;
 }
 
 .bi-search {
@@ -311,7 +316,25 @@
 }
 
 .contact-btn:hover {
-  background: #333;
+  background: #e7c51d;
+  color: #8d393e;
+}
+
+.contact-btn-phone {
+  background: #8d393e;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0px 10px 0px 0px;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.contact-btn-phone:hover {
+  background: #e7c51d;
+  color: #8d393e;
 }
 
 .no-products {
@@ -319,6 +342,335 @@
   text-align: center;
   padding: 3rem;
   color: #666;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 8px;
+  padding: 30px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.2s;
+}
+
+.modal-close:hover {
+  color: #e74c3c;
+}
+
+.modal-product-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-product-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.modal-info h2 {
+  font-size: 24px;
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-row.full-width {
+  flex-direction: column;
+}
+
+.detail-row label {
+  font-weight: 600;
+  color: #555;
+}
+
+.detail-row span {
+  color: #333;
+}
+
+.detail-row p {
+  color: #666;
+  margin: 8px 0 0 0;
+  line-height: 1.5;
+}
+
+.detail-row .price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #27ae60;
+}
+
+.seller-details {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 6px;
+  margin-top: 15px;
+}
+
+.seller-details h3 {
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-contact {
+  flex: 1;
+  padding: 12px 20px;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-contact:hover {
+  background: #229954;
+}
+
+.btn-cancel {
+  flex: 1;
+  padding: 12px 20px;
+  background: #ecf0f1;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.btn-cancel:hover {
+  background: #d5dbdb;
+}
+
+.btn-cancel-contact {
+  flex: 1;
+  padding: 12px 20px;
+  background: #8c373e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.btn-cancel-contact:hover {
+  background: #66282e;
+}
+
+/* Reviews modal styles */
+.reviews-modal-body {
+  padding: 16px;
+}
+
+.reviews-modal-body h2 {
+  margin: 10px 0px;
+}
+
+.reviews-modal-body h3, h2 {
+  color: #8c373e;
+}
+
+.reviews-list {
+  border: solid 0.5px rgb(196, 196, 196);
+  max-height: 300px;
+  overflow-y: auto;
+  margin: 12px 0px;
+  padding: 8px 15px;
+  border-radius: 5px;
+}
+
+.review-form h3 {
+  margin: 10px 0px;
+}
+
+.form-row-review-upper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 5px;
+  gap: 6px;
+} 
+
+.form-row-review {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-row-review textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  resize: none;
+}
+
+.review-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.review-item {
+  display: block;
+  width: 100%;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+  box-sizing: border-box;
+}
+
+.review-item-upper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* push delete to far right */
+  gap: 12px;
+}
+
+.review-item-lower {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* group name + date together on the left */
+.review-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0; /* helps children truncate instead of pushing the button */
+}
+
+.review-user {
+  font-weight: 600;
+  color: #222;
+  font-size: 15px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.review-user span {
+  font-weight: lighter;
+}
+
+.review-date {
+  color: #888;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* ensure delete button stays right and does not push content */
+.btn-delete-review {
+  margin: 0;
+  background: transparent;
+  border: 1px solid #8d393e;
+  color: #8d393e;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease, transform 80ms ease;
+  display: inline-block;
+}
+
+.btn-delete-review:hover {
+  background-color: #8d393e;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* message + rating below the header row */
+.review-message {
+  color: #333;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.review-message span {
+  font-weight: lighter;
+}
+
+.review-rating {
+  color: #333;
+  font-weight: 600;
+}
+.review-rating .rating {
+  color: #f39c12;
+  font-weight: lighter;
+}
+
+/* make layout tighter on small screens */
+@media (max-width: 480px) {
+  .review-item-upper {
+    gap: 8px;
+  }
+  .review-user {
+    font-size: 14px;
+  }
+  .review-date {
+    font-size: 12px;
+  }
+  .btn-delete-review {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
 }
 
 /* MEDIA QUERIES */

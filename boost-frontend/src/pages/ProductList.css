@@ -144,6 +144,11 @@
   color: #721c24;
 }
 
+.product-status.reserved {
+  background-color: #ffe8cc;
+  color: #d97706;
+}
+
 .product-date {
   color: #999;
   font-size: 0.85em;
@@ -177,12 +182,12 @@
 }
 
 .btn-delete {
-  background-color: #e74c3c;
+  background-color: #8B2635;
   color: white;
 }
 
 .btn-delete:hover {
-  background-color: #c0392b;
+  background-color: #641b26;
 }
 
 .loading,

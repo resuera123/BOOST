@@ -35,13 +35,14 @@ export default function SellerApplicationPage() {
       const applicationData = {
         applicationStatus: 'Pending',
         applicationDate: new Date().toISOString().split('T')[0],
-        user: {
-          userID: user.userID
-        }
+        userID: user.userID
       };
 
+      console.log('Submitting application data:', applicationData);
+      
       // Submit application - will stay PENDING until admin approves
-      await createSellerApplication(applicationData);
+      const response = await createSellerApplication(applicationData);
+      console.log('Application response:', response);
       
       setSuccess(true);
       
@@ -80,8 +81,8 @@ export default function SellerApplicationPage() {
             </div>
             <nav className="header-nav">
               <span className="user-greeting">
-                👤 Welcome, {user?.firstname || 'Student'}
-                <span className="seller-badge">✓ Seller</span>
+                <i class="bi bi-person-fill"></i> Welcome, {user?.firstname || 'Student'}
+                <span className="seller-badge"><i class="bi bi-check2"></i> Seller</span>
               </span>
               <button className="nav-btn" onClick={() => navigate('/products')}>
                 My Products
@@ -114,9 +115,9 @@ export default function SellerApplicationPage() {
           </div>
           <nav className="header-nav">
             <span className="user-greeting">
-              👤 Welcome, {user?.firstname || 'Student'}
+              <i class="bi bi-person-fill"></i> Welcome, {user?.firstname || 'Student'}
               {user?.role === 'SELLER' && (
-                <span className="seller-badge">✓ Seller</span>
+                <span className="seller-badge"><i class="bi bi-person-fill"></i> Seller</span>
               )}
             </span>
             {user?.role === 'SELLER' ? (
@@ -124,8 +125,8 @@ export default function SellerApplicationPage() {
                 My Products
               </button>
             ) : (
-              <button className="nav-btn" onClick={() => navigate('/seller-application')}>
-                Become a Seller
+              <button className="nav-btn" onClick={() => navigate('/home')}>
+                Home
               </button>
             )}
             <button className="logout-btn" onClick={handleLogout}>

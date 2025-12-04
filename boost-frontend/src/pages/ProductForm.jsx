@@ -168,7 +168,7 @@ export default function ProductForm() {
           </div>
           <nav className="header-nav">
             <span className="user-greeting">
-              👤 Welcome, {currentUser?.firstname || 'Student'}
+              <i class="bi bi-person-fill"></i> Welcome, {currentUser?.firstname || 'Student'}
               {currentUser?.role === 'SELLER' && (
                 <span className="seller-badge">✓ Seller</span>
               )}

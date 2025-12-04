@@ -56,8 +56,8 @@
 
 .nav-btn {
   background: none;
-  border: 2px solid #5b42f3;
-  color: #5b42f3;
+  border: 2px solid #90353f;
+  color: #90353f;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
@@ -66,12 +66,12 @@
 }
 
 .nav-btn:hover {
-  background: #5b42f3;
+  background: #90353f;
   color: white;
 }
 
 .logout-btn {
-  background: #000;
+  background: #90353f;
   color: white;
   border: none;
   padding: 0.6rem 1.2rem;
@@ -82,7 +82,7 @@
 }
 
 .logout-btn:hover {
-  background: #333;
+  background: #e7c51d;
 }
 
 /* Main Content */
@@ -98,7 +98,7 @@
 }
 
 .panel-header h1 {
-  color: #2c3e50;
+  color: #8d363f;
   font-size: 2rem;
   margin-bottom: 0.5rem;
 }
@@ -137,7 +137,7 @@
 
 .tab.active {
   color: #8B2635;
-  border-bottom-color: #8B2635;
+  border-bottom-color: #e7c51d;
 }
 
 /* Applications Grid */
@@ -157,19 +157,6 @@
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
-  border-left: 4px solid #ddd;
-}
-
-.application-card.pending {
-  border-left-color: #ffc107;
-}
-
-.application-card.approved {
-  border-left-color: #27ae60;
-}
-
-.application-card.rejected {
-  border-left-color: #e74c3c;
 }
 
 .application-card:hover {
@@ -186,14 +173,18 @@
   border-bottom: 1px solid #eee;
 }
 
+.applicant-info {
+  text-align: left;
+}
+
 .applicant-info h3 {
   margin: 0 0 0.5rem 0;
-  color: #2c3e50;
+  color: #535353;
   font-size: 1.2rem;
 }
 
 .email {
-  color: #666;
+  color: #999;
   font-size: 0.9rem;
   margin: 0.25rem 0;
 }
@@ -246,7 +237,7 @@
 }
 
 .info-row .value {
-  color: #2c3e50;
+  color: #535353;
   font-size: 0.9rem;
 }
 
@@ -280,12 +271,12 @@
 }
 
 .btn-reject {
-  background: #e74c3c;
+  background: #8c373e;
   color: white;
 }
 
 .btn-reject:hover {
-  background: #c0392b;
+  background: #772e35;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
 }

@@ -67,10 +67,6 @@ export default function ProductList() {
 
   return (
     <div className="home-page">
-      {/* ✅ Back Button - Fixed at top left */}
-      <button className="back-button-fixed" onClick={() => navigate('/home')}>
-        <i className="bi bi-arrow-left"></i>
-      </button>
 
       {/* Header */}
       <header className="home-header">
@@ -80,14 +76,14 @@ export default function ProductList() {
           </div>
           <nav className="header-nav">
             <span className="user-greeting">
-              👤 Welcome, {user?.firstname || 'Student'}
+              <i class="bi bi-person-fill"></i> Welcome, {user?.firstname || 'Student'}
               {(user?.role === 'SELLER' || user?.role === 'seller') && (
-                <span className="seller-badge">✓ Seller</span>
+                <span className="seller-badge"><i class="bi bi-check2"></i> Seller</span>
               )}
             </span>
             {(user?.role === 'SELLER' || user?.role === 'seller') ? (
-              <button className="nav-btn" onClick={() => navigate('/products')}>
-                My Products
+              <button className="nav-btn" onClick={() => navigate('/home')}>
+                Home
               </button>
             ) : (
               <button className="nav-btn" onClick={() => navigate('/seller-application')}>
@@ -131,7 +127,7 @@ export default function ProductList() {
                     {product.productDescription || 'No description available'}
                   </p>
                   <p className="product-price">
-                    ${product.productPrice ? product.productPrice.toFixed(2) : '0.00'}
+                    ₱{product.productPrice ? product.productPrice.toFixed(2) : '0.00'}
                   </p>
                   <p className="product-category">
                     Category: {product.productCategory || 'Uncategorized'}
